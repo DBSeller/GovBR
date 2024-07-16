@@ -39,6 +39,20 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected $productionUrl = 'https://sso.acesso.gov.br';
 
+       /**
+     * Staging URL.
+     *
+     * @var string
+     */
+    protected $apiStagingUrl = 'https://api.staging.acesso.gov.br';
+
+    /**
+     * Production URL.
+     *
+     * @var string
+     */
+    protected $apiProductionUrl = 'https://api.acesso.gov.br';
+
     /**
      * {@inheritdoc}
      */
@@ -129,6 +143,25 @@ class Provider extends AbstractProvider implements ProviderInterface
                return $this->stagingUrl;
             case 'production':
                return $this->productionUrl;
+            default:
+            throw new RuntimeException("Invalid environment '{$environment}' selected for GovBR provider.");
+        }
+    }
+
+        /**
+     * Get the URL for the given environment.
+     *
+     * @throws RuntimeException
+     */
+    public function getBaseUrlApiForEnvironment(): string
+    {
+        $environment = $this->getConfig('environment', 'production');
+        
+        switch ($environment) {
+            case 'staging':
+               return $this->apiStagingUrl;
+            case 'production':
+               return $this->apiProductionUrl ;
             default:
             throw new RuntimeException("Invalid environment '{$environment}' selected for GovBR provider.");
         }

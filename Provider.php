@@ -120,7 +120,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      *
      * @throws RuntimeException
      */
-    protected function getBaseUrlForEnvironment(): string
+    public function getBaseUrlForEnvironment(): string
     {
         $environment = $this->getConfig('environment', 'production');
         
